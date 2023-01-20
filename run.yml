@@ -1,0 +1,33 @@
+---
+- hosts: all
+  name: Setup my home server
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: SSH tasks
+      ansible.builtin.import_tasks: tasks/ssh.yml
+
+    - name: Base Configuration
+      ansible.builtin.import_tasks: tasks/essential.yml
+
+    - name: Docker-compose
+      ansible.builtin.import_tasks: tasks/docker.yml
+
+    # # Start All Docker Containers
+    # - import_tasks: containers/start-containers.yml
+    # # Stop All Docker Containers
+    # - import_tasks: containers/stop-containers.yml
+    # # Remove All Docker Containers
+    # - import_tasks: containers/remove-containers.yml
+
+    # # Deploy Security (Docker)
+    # - import_tasks: containers/deploy-endlessh.yml
+    # - import_tasks: containers/deploy-traefik_network.yml
+    # - import_tasks: containers/deploy-traefik.yml
+    # # Deploy Essential Containers (Docker)
+    # - import_tasks: containers/deploy-homer.yml
+    # - import_tasks: containers/deploy-vaultwarden.yml
+    # - import_tasks: containers/deploy-portainer.yml
+    # - import_tasks: containers/deploy-duplicati.yml
+    # - import_tasks: containers/deploy-syncthing.yml

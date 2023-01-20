@@ -1,0 +1,26 @@
+- name: Update Packages (Debian-Based)
+  ansible.builtin.apt:
+        upgrade: true
+        update_cache: true
+        cache_valid_time: 86400 # One day
+
+
+- name: Install the latest version of packages
+  ansible.builtin.package:
+        name:
+              - zsh
+              - htop
+              - git
+        state: latest
+
+# - name: Install Essential Packages
+#   ansible.builtin.package:
+#         name: sssd
+#         state: latest
+
+# - name: Enable Passwordless Sudo for {{ username }}
+#   lineinfile:
+#     dest: /etc/sudoers
+#     regexp: "^%wheel"
+#     line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
+#     validate: "/usr/sbin/visudo -cf %s"

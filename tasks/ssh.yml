@@ -1,0 +1,24 @@
+- name: Disable SSH Password Auth
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#PasswordAuthentication yes"
+    line: "PasswordAuthentication no"
+  register: sshd_config
+
+# - name: Change SSH Port from 22 to 2200
+#   lineinfile:
+#     dest: /etc/ssh/sshd_config
+#     regexp: "^#Port 22"
+#     line: "Port 2222"
+#   register: sshd_config
+
+- name: Disable SSH Root Auth
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#PermitRootLogin yes"
+    line: "PermitRootLogin no"
+
+- name: Restart SSH Daemon
+  ansible.builtin.service:
+    name: sshd
+    state: restarted

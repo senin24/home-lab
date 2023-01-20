@@ -1,0 +1,24 @@
+---
+- name: Update and upgrade apt packages
+  hosts: all
+  become: true
+
+  vars:
+    docker_network: traefik
+    docker_gateway: traefik
+
+  tasks:
+    - name: Update
+      ansible.builtin.apt:
+        upgrade: true
+        update_cache: true
+        cache_valid_time: 86400 # One day
+
+    - name: Install packages
+      ansible.builtin.apt:
+        pkg:
+          - zsh
+          - htop
+          - git
+          - docker.io
+          - docker-conpose
