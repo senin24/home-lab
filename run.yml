@@ -9,7 +9,7 @@
       ansible.builtin.import_tasks: tasks/ssh.yml
 
     - name: Base Configuration
-      ansible.builtin.import_tasks: tasks/essential.yml
+      ansible.builtin.import_tasks: tasks/base.yml
 
     - name: Docker-compose
       ansible.builtin.import_tasks: tasks/docker.yml
