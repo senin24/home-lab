@@ -3,6 +3,7 @@
     name:
       - apt-transport-https
       - ca-certificates
+      - curl
       - lsb-release
       - gnupg
     state: latest
@@ -15,16 +16,30 @@
 
 - name: Add repository into sources list
   ansible.builtin.apt_repository:
-    repo: "deb [arch={{ ansible_architecture }}] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
-    state: present
+    repo: deb https://download.docker.com/linux/ubuntu focal stable
     filename: docker
 
 - name: Install Docker
   ansible.builtin.apt:
     name:
-      - docker
-      - docker.io
-      - docker-compose
-      - docker-registry
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
     state: latest
     update_cache: true
+
+- name: Add User to docker Group. User name '{{ ansible_user }}'
+  ansible.builtin.user:
+    name: '{{ ansible_user }}'
+    append: true
+    groups:
+      - docker
+
+- name: Reset ssh connection to allow user changes to affect ansible user
+  ansible.builtin.meta: reset_connection
+
+- name: Create Docker Network
+  community.general.docker_network:
+    name: traefik
+    state: present
