@@ -16,6 +16,8 @@ services:
         constraints: [node.platform.os == linux]
 
   portainer:
+    env_file:
+        - ../versions.env
     image: portainer/portainer-ce:${PORTAINER_VER}
     command: -H tcp://tasks.agent:9001 --tlsskipverify
     ports:
