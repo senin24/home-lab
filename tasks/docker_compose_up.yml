@@ -1,0 +1,13 @@
+# - name: Chown the repo
+#   ansible.builtin.file:
+#       path: "{{ dest }}"
+#       recurse: true
+#       state: directory
+#       owner: '{{ ansible_user }}'
+#       group: '{{ ansible_user }}'
+
+- name: Checkout git repo
+  ansible.builtin.git:
+      repo: "{{ repo }}"
+      dest: "{{ dest }}"
+      version: "{{ branch }}"

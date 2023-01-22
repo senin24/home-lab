@@ -4,6 +4,11 @@
   gather_facts: true
   become: true
 
+  vars:
+    repo: "https://github.com/senin24/home-lab.git"
+    dest: "/home/{{ ansible_user }}/home-lab"
+    branch: "develop"
+
   tasks:
     - name: SSH tasks
       ansible.builtin.import_tasks: tasks/ssh.yml
@@ -11,8 +16,11 @@
     - name: Base Configuration
       ansible.builtin.import_tasks: tasks/base.yml
 
-    - name: Docker-compose
+    - name: Docker-compose install
       ansible.builtin.import_tasks: tasks/docker.yml
+
+    - name: Docker-compose UP
+      ansible.builtin.import_tasks: tasks/docker_compose_up.yml
 
     # # Start All Docker Containers
     # - import_tasks: containers/start-containers.yml

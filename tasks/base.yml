@@ -1,17 +1,8 @@
 - name: Update Packages (Debian-Based)
   ansible.builtin.apt:
-        upgrade: true
-        update_cache: true
-        cache_valid_time: 86400 # One day
-
-
-- name: Install the latest version of packages
-  ansible.builtin.package:
-        name:
-              - zsh
-              - htop
-              - git
-        state: latest
+      upgrade: true
+      update_cache: true
+      cache_valid_time: 86400 # One day
 
 # - name: Install Essential Packages
 #   ansible.builtin.package:
@@ -24,3 +15,20 @@
 #     regexp: "^%wheel"
 #     line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
 #     validate: "/usr/sbin/visudo -cf %s"
+
+- name: Install the latest version of packages
+  ansible.builtin.package:
+      name:
+          - zsh
+          - htop
+          - git
+          - lm-sensors
+          - ncdu
+          - rsync
+          - iotop
+      state: latest
+
+- name: Change user shell to zsh
+  ansible.builtin.user:
+      name: "{{ ansible_user }}"
+      shell: /bin/zsh
