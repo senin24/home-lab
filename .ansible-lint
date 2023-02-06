@@ -2,6 +2,7 @@
 exclude_paths:
   - .vscode/  
   - .github/
+  - compose
 skip_list:
   - package-latest
   # - latest[git]
