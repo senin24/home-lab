@@ -11,3 +11,4 @@
       repo: "{{ repo }}"
       dest: "{{ dest }}"
       version: "{{ branch }}"
+      force: true

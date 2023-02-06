@@ -1,0 +1,18 @@
+---
+- hosts: ubuntu-test
+  name: Setup SAMBA shares in my home server
+  gather_facts: true
+  become: true
+
+  vars:
+    labels:
+      - docker
+      - media
+      - backup
+    share_name: myshare
+    share_path: /srv/myshare
+    share_permissions: "rw,user=user1"
+
+  tasks:
+    - name: Setup Samba
+      ansible.builtin.import_tasks: tasks/samba.yml

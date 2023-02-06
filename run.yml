@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  name: Setup my home server
+  name: Setup common task in all servers
   gather_facts: true
   become: true
 
@@ -8,6 +8,10 @@
     repo: "https://github.com/senin24/home-lab.git"
     dest: "/home/{{ ansible_user }}/home-lab"
     branch: "develop"
+
+    share_name: myshare
+    share_path: /srv/myshare
+    share_permissions: "rw,user=user1"
 
   tasks:
     - name: SSH tasks

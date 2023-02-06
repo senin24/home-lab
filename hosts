@@ -1,1 +1,2 @@
-debian-test ansible_host=192.168.64.4  ansible_user=debian
+# debian-test ansible_host=192.168.64.4  ansible_user=debian
+ubuntu-test ansible_host=192.168.64.6  ansible_user=ubuntu

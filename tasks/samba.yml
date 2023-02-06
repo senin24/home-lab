@@ -1,0 +1,14 @@
+- name: Install and configure Samba
+  ansible.builtin.apt:
+    name: samba
+    state: present
+- name: Mount up device by label
+  ansible.posix.mount:
+    path: /srv/disk
+    src: LABEL=SOME_LABEL
+    fstype: ext4
+    state: present
+- name: Create the Samba share
+  ansible.builtin.file:
+    path: "{{ share_path }}"
+    state: directory
