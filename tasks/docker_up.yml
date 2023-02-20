@@ -14,7 +14,7 @@
 
 - name: Run `docker-compose up` for all applications
   ansible.builtin.command:
-      cmd: docker-compose up -d
+      cmd: docker compose up -d
       chdir: "{{ dest }}/apps/{{ item }}"
   register: my_output
   changed_when: my_output.rc != 0

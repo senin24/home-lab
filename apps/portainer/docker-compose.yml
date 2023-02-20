@@ -10,3 +10,11 @@ services:
             - '/var/run/docker.sock:/var/run/docker.sock'
             - 'portainer_data:/data'
         image: 'portainer/portainer-ce:latest'
+
+volumes:
+  portainer_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /mnt/docker/data/portainer
+      o: bind
