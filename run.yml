@@ -9,9 +9,17 @@
     dest: "/home/{{ ansible_user }}/home-lab"
     branch: "develop"
 
+    labels:
+      - docker
+      - media
+      - backup
+
     share_name: myshare
     share_path: /srv/myshare
     share_permissions: "rw,user=user1"
+
+    apps:
+      - portainer
 
   tasks:
     - name: SSH tasks
@@ -23,8 +31,12 @@
     - name: Docker-compose install
       ansible.builtin.import_tasks: tasks/docker.yml
 
+    - name: Mount disks and prepare folders for Home server
+      ansible.builtin.import_tasks: tasks/disks_home.yml
+
     - name: Docker-compose UP
-      ansible.builtin.import_tasks: tasks/docker_compose_up.yml
+      ansible.builtin.import_tasks: tasks/docker_up.yml
+
 
     # # Start All Docker Containers
     # - import_tasks: containers/start-containers.yml

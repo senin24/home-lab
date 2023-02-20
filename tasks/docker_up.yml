@@ -1,14 +1,21 @@
-# - name: Chown the repo
-#   ansible.builtin.file:
-#       path: "{{ dest }}"
-#       recurse: true
-#       state: directory
-#       owner: '{{ ansible_user }}'
-#       group: '{{ ansible_user }}'
-
 - name: Checkout git repo
   ansible.builtin.git:
       repo: "{{ repo }}"
       dest: "{{ dest }}"
       version: "{{ branch }}"
       force: true
+
+# - name: Run `docker-compose up` for all applications
+#   community.docker.docker_compose:
+#       project_src: "{{ dest }}/apps/{{ item }}"
+#       build: false
+#   register: output
+#   loop: "{{ apps }}"
+
+- name: Run `docker-compose up` for all applications
+  ansible.builtin.command:
+      cmd: docker-compose up -d
+      chdir: "{{ dest }}/apps/{{ item }}"
+  register: my_output
+  changed_when: my_output.rc != 0
+  loop: "{{ apps }}"

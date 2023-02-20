@@ -1,0 +1,52 @@
+- name: Install cifs-utils
+  ansible.builtin.apt:
+    name:
+      - samba
+    state: latest
+    update_cache: true
+
+- name: Start samba service, if not started
+  ansible.builtin.service:
+    name: smbd
+    state: started
+
+- name: Create a directories for disks
+  ansible.builtin.file:
+    path: /mnt/{{ item }}
+    state: directory
+    mode: '0755'
+  loop: "{{ labels }}"
+
+- name: Mount up device by label
+  ansible.posix.mount:
+    path: /mnt/{{ item }}
+    src: LABEL={{ item }}
+    fstype: ext4
+    state: present
+  loop: "{{ labels }}"
+
+- name: Create a directory for share
+  ansible.builtin.file:
+    path: /mnt/media/shara
+    state: directory
+    mode: '0755'
+
+- name: Configuring samba shares
+  ansible.builtin.template:
+    src: homeserver_smb.conf
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart smbd
+
+# - name: Mount network share for anonymous users
+#   ansible.posix.mount:
+#     src: //{{ ansible_ssh_host }}/shara
+#     path: /mnt/media/shara
+#     fstype: cifs
+#     # opts: 'username={{ username }},password={{ password }}'
+#     state: mounted
+
+
