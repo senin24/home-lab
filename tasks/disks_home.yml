@@ -30,9 +30,9 @@
     content: '{"data-root": "/mnt/docker/data_docker"}'
     dest: /etc/docker/daemon.json
     follow: true
-    owner: root
-    group: root
-    mode: '0644'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    mode: '0755'
 
 - name: Restart Docker Daemon
   ansible.builtin.service:

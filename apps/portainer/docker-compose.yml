@@ -13,8 +13,8 @@ services:
 
 volumes:
   portainer_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /mnt/docker/data_apps/portainer
-      o: bind
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   device: /mnt/docker/data_apps/portainer
+    #   o: bind
