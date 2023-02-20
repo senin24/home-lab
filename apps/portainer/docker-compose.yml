@@ -16,5 +16,5 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /mnt/docker/data/portainer
+      device: /mnt/docker/data_apss/portainer
       o: bind

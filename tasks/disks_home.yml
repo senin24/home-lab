@@ -19,10 +19,16 @@
     state: directory
     mode: '0755'
 
+- name: Create a directory for docker volumes
+  ansible.builtin.file:
+    path: /mnt/docker/data_apps
+    state: directory
+    mode: '0755'
+
 - name: Create daemon.json file
   ansible.builtin.copy:
-    content: '{"data-root": "/path/to/your/docker"}'
-    dest: /mnt/docker/daemon.json
+    content: '{"data-root": "/mnt/docker/data_docker}'
+    dest: /etc/docker/daemon.json
     follow: true
     owner: root
     group: root
