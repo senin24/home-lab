@@ -27,7 +27,7 @@
 
 - name: Create daemon.json file
   ansible.builtin.copy:
-    content: '{"data-root": "/mnt/docker/data_docker}'
+    content: '{"data-root": "/mnt/docker/data_docker"}'
     dest: /etc/docker/daemon.json
     follow: true
     owner: root
